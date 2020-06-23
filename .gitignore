@@ -5,3 +5,5 @@ build/
 *.swo
 *.dll
 node_modules/
+.ionide
+.vscode
