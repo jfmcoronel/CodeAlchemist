@@ -83,6 +83,10 @@ module Pool =
     Array.exists checker pool
 
   let private checkPools (ssPool, sPool) gPool =
+    printfn "ssPool: %A" ssPool
+    printfn "\n"
+    printfn "gPool: %A" gPool
+    printfn "\n"
     if (checkPool ssPool) && (checkPool gPool) then
       (ssPool, sPool), gPool
     else Logger.error "Need more diverse seeds"
