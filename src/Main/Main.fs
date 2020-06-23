@@ -87,5 +87,8 @@ let main argv =
     let conf = loadConf argv.[1] argv.[2..]
     loadBricks conf |> Fuzzer.fuzz conf
   elif argv.[0] = "reproduce" then loadConf argv.[1] [||] |> reproduce
+  elif argv.[0] = "examine" then
+    let conf = loadConf argv.[1] argv.[2..]
+    loadBricks conf |> printfn "%A"
   else ()
   0
