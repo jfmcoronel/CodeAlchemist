@@ -14,6 +14,9 @@ let mkGenerate iBlk sPool gPool (rnd: Random) pBlk =
     Context.update ctx scope dMap post
 
   let rec generate sb i d ctx =
+    printfn "i = %d" i
+    printfn "%A\n" ctx
+    Console.ReadKey() |> ignore
     if i > 0 then
       if d > 0 && rnd.Next (100) < pBlk then
         match genBlk sb (d - 1) ctx with
