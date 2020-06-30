@@ -41,9 +41,7 @@ let mkGenerate iBlk sPool gPool (rnd: Random) pBlk =
       printfn "none matched"
       None
 
-  let ret = generate
-  Console.ReadKey() |> ignore
-  ret
+  generate
 
 let fuzzMain conf sPool gPool rndSeed = async {
   let rnd = new Random (rndSeed)
@@ -65,6 +63,7 @@ let fuzzMain conf sPool gPool rndSeed = async {
     if isBug ret |> not then renameFile fname fname  // Do not delete intermediate files
     else renameFile fname (sprintf "%s-%d.js" bugPrefix idx)
     idx <- idx + 1
+    Console.ReadKey() |> ignore
 }
 
 let fuzz conf bricks =
