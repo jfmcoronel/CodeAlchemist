@@ -15,7 +15,7 @@ let mkGenerate iBlk sPool gPool (rnd: Random) pBlk =
     printfn "rMap: %A" rMap
     printfn "scope: %A" scope
     printfn "dMap: %A" dMap
-    printfn "post: %A\n" post
+    printfn "post: %A" post
     printfn "sb: %A\n" sb
     printfn "sb str: %A\n" (sb.ToString())
     Context.update ctx scope dMap post
