@@ -59,6 +59,8 @@ let fuzzMain conf sPool gPool rndSeed = async {
     let sb = new SB ()
     generate sb iMax dMax Context.empty |> ignore
     sb.ToString() |> writeFile fname |> ignore
+    let output = sb.ToString()
+    printfn "%s\n" output
     let! ret = exec fname
     if isBug ret |> not then renameFile fname fname  // Do not delete intermediate files
     else renameFile fname (sprintf "%s-%d.js" bugPrefix idx)
