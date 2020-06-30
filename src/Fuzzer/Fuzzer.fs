@@ -27,14 +27,22 @@ let mkGenerate iBlk sPool gPool (rnd: Random) pBlk =
 
   and genBlk sb d ctx0 =
     let ctx = Selector.pickCtx rnd ctx0
-    match Selector.pickGuard rnd gPool ctx with
+    let selectedGuard = Selector.pickGuard rnd gPool ctx
+    printfn "selected guard: %A\n" selectedGuard
+    printfn "inner context 1: %A\n" ctx
+    match selectedGuard with
     | Some (struct (guard, rMap, scope, dMap, post)) ->
       let ctx = Context.initBlk ctx guard scope dMap post
+      printfn "inner context 2: %A\n" ctx
+      Console.ReadKey() |> ignore
       CodeBrick.guardToCodeInit rMap sb guard
       let ret = generate sb (rnd.Next (1, iBlk)) d ctx
       CodeBrick.guardToCodeFini rMap sb guard
       Context.finiBlk guard ctx0 ret |> Some
-    | None -> None
+    | None ->
+      printfn "none matched"
+      Console.ReadKey() |> ignore
+      None
 
   generate
 
