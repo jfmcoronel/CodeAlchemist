@@ -11,6 +11,11 @@ let mkGenerate iBlk sPool gPool (rnd: Random) pBlk =
     let struct (stmt, rMap, scope, dMap, post) =
       Selector.pickBrick rnd sPool ctx
     stmtItemToCode rMap sb stmt
+    printfn "stmt: %A" stmt
+    printfn "rMap: %A" rMap
+    printfn "scope: %A" scope
+    printfn "dMap: %A" dMap
+    printfn "post: %A\n" post
     Context.update ctx scope dMap post
 
   let rec generate sb i d ctx =
