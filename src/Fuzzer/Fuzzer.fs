@@ -16,7 +16,6 @@ let mkGenerate iBlk sPool gPool (rnd: Random) pBlk =
   let rec generate sb i d ctx =
     printfn "i = %d" i
     printfn "%A\n" ctx
-    Console.ReadKey() |> ignore
     if i > 0 then
       if d > 0 && rnd.Next (100) < pBlk then
         match genBlk sb (d - 1) ctx with
@@ -34,17 +33,17 @@ let mkGenerate iBlk sPool gPool (rnd: Random) pBlk =
     | Some (struct (guard, rMap, scope, dMap, post)) ->
       let ctx = Context.initBlk ctx guard scope dMap post
       printfn "inner context 2: %A\n" ctx
-      Console.ReadKey() |> ignore
       CodeBrick.guardToCodeInit rMap sb guard
       let ret = generate sb (rnd.Next (1, iBlk)) d ctx
       CodeBrick.guardToCodeFini rMap sb guard
       Context.finiBlk guard ctx0 ret |> Some
     | None ->
       printfn "none matched"
-      Console.ReadKey() |> ignore
       None
 
-  generate
+  let ret = generate
+  Console.ReadKey() |> ignore
+  ret
 
 let fuzzMain conf sPool gPool rndSeed = async {
   let rnd = new Random (rndSeed)
